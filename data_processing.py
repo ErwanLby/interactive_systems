@@ -5,19 +5,21 @@ import torch
 from torch.utils.data import DataLoader, TensorDataset
 import pdb
 
-
+RAW_PATH = "data/raw/"
+TRAIN_PATH = "data/train/"
+TEST_PATH = "data/test/"
 
 def process_data(geste: str, max_len: int, len_train, len_test):
-    json_file = open(f"raw_{geste}_data.json", 'r')
+    json_file = open(f"{RAW_PATH}raw_{geste}_data.json", 'r')
     list_of_lists = json.load(json_file)
     json_file.close()
     list_of_lists = pad_or_truncate(list_of_lists, max_len)
     print(len(list_of_lists))
     train_data = np.array(list_of_lists[:len_train])
     test_data = np.array(list_of_lists[len_train:len_train+len_test])
-    np.save(f"{geste}_train_data.npy", train_data)
-    np.save(f"{geste}_test_data.npy", test_data)
-
+    np.save(f"{TRAIN_PATH}{geste}_train_data.npy", train_data)
+    np.save(f"{TEST_PATH}{geste}_test_data.npy", test_data)
+    
 def pad_or_truncate(list_of_lists: list, max_len: int):
     for i in range(len(list_of_lists)):
         if len(list_of_lists[i]) > max_len:
@@ -79,20 +81,19 @@ class BidirectionnalLSTM(torch.nn.Module):
         print(f"Accuracy = {correct/total:.4f}")
     
 # use the model to train on the data
-merci_train_data = np.load("merci_train_data.npy")
-fini_train_data = np.load("fini_train_data.npy")
-maman_train_data = np.load("maman_train_data.npy")
-please_train_data = np.load("please_train_data.npy")
-manger_train_data = np.load("manger_train_data.npy")
-livre_train_data = np.load("livre_train_data.npy")
+merci_train_data = np.load(TRAIN_PATH+"merci_train_data.npy")
+fini_train_data = np.load(TRAIN_PATH+"fini_train_data.npy")
+maman_train_data = np.load(TRAIN_PATH+"maman_train_data.npy")
+please_train_data = np.load(TRAIN_PATH+"please_train_data.npy")
+manger_train_data = np.load(TRAIN_PATH+"manger_train_data.npy")
+livre_train_data = np.load(TRAIN_PATH+"livre_train_data.npy")
 
-
-merci_test_data = np.load("merci_test_data.npy")
-fini_test_data = np.load("fini_test_data.npy")
-maman_test_data = np.load("maman_test_data.npy")
-please_test_data = np.load("please_test_data.npy")
-manger_test_data = np.load("manger_test_data.npy")
-livre_test_data = np.load("livre_test_data.npy")
+merci_test_data = np.load(TEST_PATH+"merci_test_data.npy")
+fini_test_data = np.load(TEST_PATH+"fini_test_data.npy")
+maman_test_data = np.load(TEST_PATH+"maman_test_data.npy")
+please_test_data = np.load(TEST_PATH+"please_test_data.npy")
+manger_test_data = np.load(TEST_PATH+"manger_test_data.npy")
+livre_test_data = np.load(TEST_PATH+"livre_test_data.npy")
 
 train_data = np.concatenate((merci_train_data, fini_train_data, maman_train_data, please_train_data, manger_train_data, livre_train_data), axis=0)
 train_targets = np.concatenate((np.zeros(len(merci_train_data)), 
