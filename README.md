@@ -33,5 +33,5 @@ En enrichissant cette dernière, les résultats devraient être encore meilleurs
 
 ### Application finale
 L'application finale doit intégrer le modèle et, pour chaque mouvement, lire à haute-voix les résultats du modèle de manière audible.
-Il s'agit d'une problématique assez classique, pour laquelle des soltions existent. Nous n'avons cependant pas réalisé cette application, mais la démonstration vidéo montre l'usage qui pourrait en être fait. 
+Il s'agit d'une problématique assez classique, pour laquelle des soltions existent. La démonstration vidéo montre l'usage qui pourrait en être fait. 
 
